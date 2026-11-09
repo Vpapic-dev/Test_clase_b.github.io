@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Practica tu examen teórico de licencia Clase B en Chile con trivias y memorice de señales.">
+  <title>Licencia Clase B · Práctica teórica</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="saltar" href="#contenido">Saltar al contenido</a>
+
+  <div class="contenedor">
+    <header class="barra">
+      <div class="marca">
+        <div class="logo" aria-hidden="true">B</div>
+        <div>
+          <strong>Licencia Clase B</strong>
+          <small>Práctica teórica</small>
+        </div>
+      </div>
+      <p class="lema-top">Repasa para tu examen teórico</p>
+    </header>
+
+    <main id="contenido">
+
+      <!-- MENÚ PRINCIPAL -->
+      <section id="pantalla-menu" class="panel">
+        <div class="hero">
+          <p class="eyebrow">Examen teórico</p>
+          <h1>Practica tu examen teórico</h1>
+          <p class="bajada">Trivias con el Libro del Conductor, trivia de señales de tránsito y un memorice para repasar las señales.</p>
+        </div>
+
+        <nav aria-label="Secciones de práctica">
+          <div class="pestanas" role="group" aria-label="Secciones">
+            <button type="button" class="pestana" data-trivia="libro">Libro del Conductor</button>
+            <button type="button" class="pestana" data-trivia="senales">Señales</button>
+            <button type="button" class="pestana" data-ir="pantalla-memo">Memorice</button>
+            <span class="pestana" aria-label="Cuestionario, próximamente">Cuestionario · Próximamente</span>
+          </div>
+        </nav>
+
+        <h2 tabindex="-1">Elige una práctica</h2>
+        <p class="muted">Cada ronda tiene preguntas aleatorias. Puedes repetirla cuantas veces quieras.</p>
+
+        <div class="tarjetas">
+          <button type="button" class="tarjeta" data-trivia="libro">
+            <span class="icono" aria-hidden="true">📘</span>
+            <span class="texto">
+              <span class="tit">Trivia del Libro del Conductor</span>
+              <span class="desc">Preguntas sobre normas, mantención y conducción segura.</span>
+            </span>
+          </button>
+          <button type="button" class="tarjeta" data-trivia="senales">
+            <span class="icono" aria-hidden="true">🚦</span>
+            <span class="texto">
+              <span class="tit">Trivia de señales</span>
+              <span class="desc">Reconoce cada señal y su significado según la normativa chilena.</span>
+            </span>
+          </button>
+          <button type="button" class="tarjeta memo" data-ir="pantalla-memo">
+            <span class="icono" aria-hidden="true">🧠</span>
+            <span class="texto">
+              <span class="tit">Memorice de señales</span>
+              <span class="desc">Encuentra los pares de señales iguales y cuenta tus movimientos.</span>
+            </span>
+          </button>
+        </div>
+      </section>
+
+      <!-- SELECCIÓN DE MODO -->
+      <section id="pantalla-modo" class="panel" hidden>
+        <h2 id="modo-titulo" tabindex="-1">Trivia</h2>
+        <fieldset>
+          <legend>Cantidad de preguntas</legend>
+          <div class="modos">
+            <button type="button" class="modo" data-modo="rapido" aria-pressed="true">10 preguntas<small>Práctica rápida</small></button>
+            <button type="button" class="modo" data-modo="medio" aria-pressed="false">20 preguntas<small>Práctica media</small></button>
+            <button type="button" class="modo" data-modo="real" aria-pressed="false">35 preguntas<small>Ronda completa</small></button>
+          </div>
+        </fieldset>
+        <p id="modo-aviso" class="aviso-modo" aria-live="polite"></p>
+        <button type="button" id="btn-comenzar" class="btn-grande">Comenzar</button>
+        <button type="button" class="btn-sec" data-ir="pantalla-menu">Volver al menú</button>
+      </section>
+
+      <!-- TRIVIA -->
+      <section id="pantalla-quiz" class="panel" hidden>
+        <div class="quiz-top">
+          <span id="quiz-progreso" class="progreso-txt" aria-live="polite"></span>
+          <button type="button" class="btn-link" data-ir="pantalla-menu">Menú</button>
+        </div>
+
+        <div class="quiz-grid">
+          <div>
+            <figure id="quiz-figura" class="figura" hidden>
+              <img id="quiz-img" alt="">
+              <figcaption id="quiz-img-aviso" class="aviso-error" hidden></figcaption>
+            </figure>
+
+            <h2 id="quiz-pregunta" class="pregunta" tabindex="-1"></h2>
+            <p id="quiz-instr" class="instr"></p>
+
+            <div id="quiz-opciones" class="opciones"></div>
+
+            <div id="quiz-feedback" class="feedback" role="status" hidden></div>
+
+            <div class="acciones">
+              <button type="button" id="btn-confirmar" class="btn-confirmar" disabled>Confirmar</button>
+              <button type="button" id="btn-siguiente" class="btn-confirmar" hidden>Siguiente</button>
+            </div>
+          </div>
+
+          <aside class="quiz-lateral" aria-label="Estado de la ronda">
+            <h3>Sesión</h3>
+            <div class="dato"><span id="st-correctas" class="num">0</span><span class="etq">Correctas</span></div>
+            <div class="dato"><span id="st-racha" class="num">0</span><span class="etq">Racha</span></div>
+            <div class="dato"><span id="st-restantes" class="num">0</span><span class="etq">Restantes</span></div>
+            <div class="consejo">
+              <strong>Consejo</strong>
+              <p>Lee cada alternativa completa antes de confirmar.</p>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <!-- RESULTADO -->
+      <section id="pantalla-resultado" class="panel" hidden>
+        <h2 tabindex="-1">Resultado de la ronda</h2>
+        <p id="res-texto" class="res" aria-live="polite"></p>
+        <button type="button" id="btn-otra" class="btn-grande">Otra ronda</button>
+        <button type="button" class="btn-sec" data-ir="pantalla-menu">Volver al menú</button>
+      </section>
+
+      <!-- MEMORICE -->
+      <section id="pantalla-memo" class="panel" hidden>
+        <h2 tabindex="-1">Memorice de señales</h2>
+        <div class="memo-barra">
+          <p>Movimientos: <strong id="memo-movs">0</strong></p>
+          <p>Pares: <strong id="memo-pares">0 de 0</strong></p>
+        </div>
+        <p id="memo-mensaje" class="memo-mensaje" role="status"></p>
+        <div id="memo-tablero" class="tablero"></div>
+        <button type="button" id="btn-memo-inicio" class="btn-grande">Empezar memorice</button>
+        <button type="button" id="btn-memo-nueva" class="btn-sec">Nueva ronda</button>
+        <button type="button" class="btn-sec" data-ir="pantalla-menu">Volver al menú</button>
+      </section>
+
+    </main>
+
+    <footer class="pie">
+      <p>Material de práctica. Verifica siempre la información con el Libro del Conductor y la normativa vigente.</p>
+      <div class="pie-min">
+        <span>Basado en el Manual de Señalización de Tránsito de CONASET, versión 2021.</span>
+        <span>Desarrollado por <strong>VP.dev</strong></span>
+      </div>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
